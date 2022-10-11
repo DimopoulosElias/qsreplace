@@ -13,6 +13,9 @@ import (
 func main() {
 	var appendMode bool
 	flag.BoolVar(&appendMode, "a", false, "Append the value instead of replacing it")
+	
+	var urlEncode bool
+	flag.BoolVar(&urlEncode, "no-url-encoding", true, "Do not url encode the payload")
 
 	var ignorePath bool
 	flag.BoolVar(&ignorePath, "ignore-path", false, "Ignore the path when considering what constitutes a duplicate")
@@ -59,7 +62,10 @@ func main() {
 			}
 		}
 
-		u.RawQuery = qs.Encode()
+		if urlEncode {
+			u.RawQuery = qs.Encode()
+		}
+		//u.RawQuery = qs.Encode()
 
 		fmt.Printf("%s\n", u)
 

@@ -62,10 +62,12 @@ func main() {
 			}
 		}
 
-		if urlEncode {
-			u.RawQuery = qs.Encode()
+		u.RawQuery = qs.Encode()
+		
+		if !urlEncode {
+			decoded,err:=url.QueryUnescape(u.RawQuery)
+			u.RawQuery= decoded
 		}
-		//u.RawQuery = qs.Encode()
 
 		fmt.Printf("%s\n", u)
 

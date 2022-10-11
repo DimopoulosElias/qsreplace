@@ -65,7 +65,14 @@ func main() {
 		u.RawQuery = qs.Encode()
 		
 		if !urlEncode {
+			
 			decoded,err:=url.QueryUnescape(u.RawQuery)
+			
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "failed to parse url %s [%s]\n", sc.Text(), err)
+				continue
+			}
+			
 			u.RawQuery= decoded
 		}
 
